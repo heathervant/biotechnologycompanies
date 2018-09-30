@@ -1,0 +1,77 @@
+---
+title: "lab 4 blog post"
+author: "hvan"
+date: "September 29, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import data, include= FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+biot_data <- read.csv("../biotech_company_investments.csv")
+library(ggplot2)
+
+```
+## Biotechnology is big- but where to start-up?
+
+>  Having a background in biology and now studying data science, I am very interested in making the world a better place with innovative biotechnology tools. Having always been interested in biology and how our brains work, I eagerly pursued a BSc. in Integrated Science: Biochemistry and Neuroscience at UBC. I am now in the Master of Data Science program at UBC, and upon graduation in June 2019, I will be even more eagerly looking for a job. However, I really want to make sure that this job is personally meaningful and fulfilling and has a large positive impact on the world. This led me to investigate 10 new and exciting biotechnology companies from this article called [“Biotech Breakthroughs and Big Ideas in 2018”](https://medium.com/neodotlife/2018-in-genomics-food-gmos-blockchain-medicine-dna-apps-genomics-brain-machine-interfaces-and-sex-c824ef572f2b), published by one of my favourite curated news sources NEO.life. 
+
+> Here is a list of biotechnology companies that the article mentions as well as a few others that I know of and a description of the technology they are working on.
+
+```{R list of companies, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+subsetd <- c("Company.name", "therapeutic_field")
+
+listofcompanies <- biot_data[subsetd]
+View(listofcompanies)
+```
+![](../list of companies.PNG)
+
+
+> This is a very exciting and diverse list, and some work needs to be done to narrow down the options of where I would like to apply for a job. Therefore, I'll outline what qualities I want in a potential workplace or company. Once I have outlined my personal criteria or goals, we can see how well each biotechnology company satisfies them, which will help us make a decision on where I should work. At this point I will ignore current job openings and qualifications, as I am more interested in exploring the companies overall missions and use of biotechnology and how those align with my interests.
+  
+## Personal Interest 
+
+> It makes sense to base this decision off of which company interests me the most, as it will become a large part of my life, and I like to keep life interesting. I have given each of these companies a rank from 1-18 on how much they interest me. This subjective score is based on my previous background, my values and how excited I got when I read about their work. The type of research and tools that the company is using also influenced my interest and support for the company. For example, I prefer companies and solutions focusing on decision-making and lifestyle enhancements, rather than pharmaceuticals. This is because I think they will have a stronger positive impact, as described below. I favoured neuroscience-focused companies over more general biotech companies.
+
+```{R interest scores}
+knitr::opts_chunk$set(echo = FALSE)
+ggplot(biot_data, aes(x=biot_data$Company.name, y=biot_data$Interest_score)) + geom_col() + theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+
+
+## Positive Impact
+> As an aspiring scientist and philanthropist, I would like to work somewhere that is doing work that could have a large positive impact on society. Therefore, I gave each company a score based on how big of a positive impact I think they could have, based on my technical experience in the field and a fair amount of research. Ethical considerations come into play here, as in order for a technology to have a positive impact, it should provide a solution to a globally-pressing need, be widely accessible, and be mindful of long-term sustainability. For example, data-driven companies that might revolutionize health-care scored higher than Liberos, who is researching the biology of sexual intercourse. Singularity University received the highest score as they are working on a wide range of serious global issues with disruptive cutting-edge technologies. Personally, I believe that health outcomes depend more on lifestyle and nutrition more than finding a magic pill that will cure a disease. This is because human physiology is so multi-dependent on so many factors such as metabolism, nutrient availability, cumulative toxins, pH, stress, and many more that have yet to be fully discovered. Thus, the likelihood of finding one compound or molecule when taken at a specific time will magically cure people of their condition (rare genetic exceptions aside) is very low. The number of Alzheimer’s drugs that have failed clinical trials is astonishing (400!).  Therefore, I believe that helping people improve their lifestyle and nutrition habits will be much more effective at creating a healthier world. Here’s an [article from a Harvard researcher]( https://www.health.harvard.edu/blog/intensive-lifestyle-change-it-works-and-its-more-than-diet-and-exercise-2017082112287) with more evidence if you don’t believe me.
+## Company Size
+I would like to work for a somewhat small start-up, because I like the work culture and excitement more than working for a larger more corporate biotechnology company where I may not have as much autonomy and responsibility in my daily tasks. Thus, I gave each company a score of 1, 2, or 3, for large, medium, or small after researching the general number of employees on [crunchbase.com](crunchbase.com).
+
+```{r company size, include= FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+ggplot(biot_data, aes(x= biot_data$Company.name, y=biot_data$size_of_company)) + geom_col() + xlab("Company") + ylab("Preferred size of company") + theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+
+## Location
+> It turns out that most of these companies are located in San Francisco- not surprised! Out of these listed locations, I would prefer to live on the west coast of North America with a slight preference for San Diego, then San Francisco, and then Maryland as I have family and friends in these locations. I can account for these preferences by giving each company’s location a preference score from 1-5, with 5 being the most preferable, and add this to each company’s total score.
+
+```{r location,}
+knitr::opts_chunk$set(echo = TRUE)
+ggplot(biot_data, aes(x=biot_data$Company.name, y=biot_data$location)) +geom_boxplot() +  xlab("Company") + ylab("location") + theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+## Overall winners
+
+>Each company received a rank from 1 to 18 (with 18 being the best) for the interest and positive impact categories, as well as a score from 1-5 for location preference, a score from 1-3 for size of company. These scores were then summed to find the total score for each company. Ties in rank were dealt with by averaging the number of points between them.  We can see the clear winner is Singularity University.
+
+```{R overall rank}
+knitr::opts_chunk$set(echo = TRUE)
+ggplot(biot_data, aes(x=biot_data$Company.name, y=overall_score)) + geom_col() + xlab("Company") + ylab("Overall Score") + theme(axis.text.x=element_text(angle = -90, hjust = 0))
+
+```
+
+
+> While it is possible for me to apply to all of these companies, I now have a better direction as to where I should start building my professional network.
